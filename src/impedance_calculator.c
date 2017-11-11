@@ -41,6 +41,7 @@ float* sort_electrical_measurements(electrical_measurements_t *measurements)
 
 float calculate_median_impedance(electrical_measurements_t *measurements){
 
+   float* sorted_array = sort_electrical_measurements(measurements);
 
 }
 
