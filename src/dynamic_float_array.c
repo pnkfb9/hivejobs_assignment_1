@@ -13,7 +13,7 @@ void initialize_array(dynamic_float_array_t *ar,size_t size){
 }
 
 void insert_array_element(dynamic_float_array_t *ar, float element){
-  
+
   if(ar->used == ar->size)          //no more space left, adding one more entry
   {
     ar->size += 1;
@@ -33,11 +33,11 @@ int is_valid_array_index(dynamic_float_array_t *ar, int index)
 {
     if( index >= 0 && index < ar->used)
     {
-      return true;
+      return SUCCESS;
     }
     else
     {
-      return false;
+      return FAILURE;
     }
 }
 

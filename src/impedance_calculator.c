@@ -1,9 +1,15 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <types.h>
 
 int calculate_mean_impedance(electrical_measurements_t *measurements){
 
+  if(measurements == NULL)
+  {
+    printf("[ERROR] calculate_mean_impedance: One or more input parameter not set.\n");
+    return FAILURE;
+  }
   size_t used_elements = measurements->num_measurements;
   float impedance_sum = 0.0f;
   //have to add check_array_bounds to check if both arrays have same length
@@ -13,6 +19,7 @@ int calculate_mean_impedance(electrical_measurements_t *measurements){
   }
   measurements->mean_impedance = impedance_sum/(int)used_elements;
 
+  return SUCCESS;
 }
 
 int qsort_asc_comparator(const void* a, const void* b){
@@ -32,9 +39,14 @@ float* sort_electrical_measurements(float *to_sort_array,size_t size)
 }
 
 
-float calculate_median_impedance(electrical_measurements_t *measurements){
+int calculate_median_impedance(electrical_measurements_t *measurements){
 
-  float computed_median = 0.0f;
+  if(measurements == NULL)
+  {
+    printf("[ERROR] calculate_median_impedance: One or more input parameter not set.\n");
+    return FAILURE;
+  }
+  
   size_t used_elements = measurements->reactances.used;
   float* sorted_array;
   float* non_sorted_array = (float*)malloc(sizeof(float)*used_elements);
@@ -54,6 +66,5 @@ float calculate_median_impedance(electrical_measurements_t *measurements){
   {
     measurements->median_impedance = sorted_array[used_elements/2];
   }
+  return SUCCESS;
 }
-
-int check_array_bounds(electrical_measurements_t *measurements);

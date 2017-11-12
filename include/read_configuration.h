@@ -5,7 +5,7 @@
 #define LOCALIZATION_US "us"
 #define LOCALIZATION_AS "as"
 
-static const char* option_file = "config/options.conf";
+extern const char* option_file;
 
 user_context_t* initialize_user_context();
 

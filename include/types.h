@@ -1,6 +1,12 @@
 #ifndef MY_TYPES_H
 #define MY_TYPES_H
 
+#define SUCCESS 0
+#define FAILURE 1
+
+#define IT_LOC_OFFSET 0
+#define US_LOC_OFFSET 3
+
 typedef enum languages{
   lang_unknown = -1,
   lang_it,
