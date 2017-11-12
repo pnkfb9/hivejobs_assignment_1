@@ -87,3 +87,61 @@ The Printer module leverages the usage of the <string.h> library to perform a ad
 
 It is constituted of a method called date_to_string, used to translate a date data type into a string(in the format described by the locale parameter from options.conf) and of a method print_results that formats the output ina single string that is then printed to the console.
 
+## Custom Data Types
+
+In order to better develop the application, there has been the need of implement custom data types:
+
+### Dynamic arrays
+
+This has been one of the core custom data types, and has been implemented in order to be able to store a theoretically infinite number of floating point elements into the array(standard C language does not know types such vectors). The other possible selection could be the usage of linked lists, but for the purpose of this application, dynamic arrays are sufficent.
+
+```
+typedef struct dynamic_float_array_t{
+
+  float *array;   //pointer to a float type, holding the dynamically growing array
+  size_t size;    //size of the array
+  size_t used;    //used elements into the array
+
+}dynamic_float_array_t;
+```
+
+The source file contains the implementation of a set of methods used to initialize, insert and retrieve elements from such arrays.
+
+### User Context
+
+This type has been defined in order to have a single-entry point in which all the user session's setting and data can be accessed.
+The structure of such data type is the following:
+```
+typedef struct user_context_t{
+
+  language_choice_t language;           //locale language setting
+  date_format_choice_t date_format;     //date format setting
+
+  electrical_measurements_t daily_measurement;  //daily measurements
+
+}user_context_t;
+```
+The data type is autoexplicative: is composed by two custom data types for locale settings and the already seen electrical measurements data type to hold the Rs,Xs and Zs values.
+
+This data type is also useful because eases the process of output customization with locales, having the settings bound to the user session in eery part of the code.
+
+# Leftovers 
+
+Unfortunately, this document cannot be finished in the given time, due to a combination of factors that are not eligible to be described here as a sort of excusatory. 
+
+Instead, the SW engineer wants to briefly close this document with some open points and some known issues in the software developed:
+
+### Error Handling
+A simple error handling has been done, mostly a check on the inputs (if set or not, or if NULL). Only basic checks on floating point conversion from string to float has been done in order to be sure that no segfault could arise from the conversions. More could have been done, for example check on the date values for months, days and years(if the numbers are reasonable or not).
+### Printing functions
+Actual implementation, albeit working, is not good to see.
+
+### Test suite
+
+No tests have been shipped with the software. Some testing has been made locally with some different input files, with different dates and corrupted Xs and Rs values, and they passed. I know that is not a sufficent test suite(it is not at all!), I apologize.
+
+### Future improvements 
+Some improvements could be addressed in future, such as date parsing options. In fact, the program should be able to parse different type of input date(for both the three us, it and as formats). A method that tries to implement this feature has already been added, thought has only been tested for us and it locales.
+
+Also, in order to let the user modify the options.conf file in a better way, a simple tool could be developed, with a simple command line interface, in order to easily modify settings(instead of opening the file with a text editor such as nano or vim).
+
